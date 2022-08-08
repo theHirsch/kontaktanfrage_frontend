@@ -2,7 +2,6 @@ import React from "react";
 
 export default function Header(props) {
   return (
-    <header>
       <div className="container" id="">
         <div id="header">
           <h1>Kontaktanfragenformular</h1>
@@ -18,10 +17,9 @@ export default function Header(props) {
             id="remove_note"
             onClick={props.deleteAll}
           >
-            Zurücksetzen
+            Reset
           </button>
         </div>
       </div>
-    </header>
   );
 }
