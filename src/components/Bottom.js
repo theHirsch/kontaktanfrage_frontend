@@ -17,7 +17,7 @@ export default function Bottom(props) {
             onClick={(e) => props.addNoteUI(e)}
           >
             Absenden
-          </button>{" "}
+          </button>
         </div>
       </div>
   );
