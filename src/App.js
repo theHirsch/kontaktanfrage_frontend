@@ -11,64 +11,44 @@ import Stack from '@mui/material/Stack';
 import qs from 'qs';
 
 
-
-
-
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      viewType: "Resources",
-      treeEnabled: true,
-      // ..
-    };
-  }
+    this.state = { apiResponse: "" };
+}
 
-  componentDidMount() {
-    this.resourcesDays();
-    this.resourcesTimes();
-  }
+callAPI() {
+    fetch("http://localhost:8080")
+        .then(res => res.text())
+        .then(res => this.setState({ apiResponse: res }));
+}
 
-  resourcesDays() {
-    const columns = [
-      { name: "Montag", id: "G1"},
-      { name: "Dienstag", id: "G2"},
-      { name: "Mittwoch", id: "G3"},
-      { name: "Donnerstag", id: "G4"},
-      { name: "Freitag", id: "G5"}
-    ];
-     this.setState({
-      columnWidthSpec: "Auto",
-      columns
-    });
-  }
+componentWillMount() {
+    this.callAPI();
+}
 
-  resourcesTimes() {
-    const resources = [
-      { name: "08:00 - 10:00", id: "T1"},
-      { name: "10:00 - 12:00", id: "T2"},
-      { name:"12:00 - 14:00", id: "T3"},
-      { name: "14:00 - 16:00", id: "T4"},
-      { name: "16:00 - 18:00", id: "T5"},
-      { name: "18:00 - 20:00", id: "T6"}
-    ];
-     this.setState({
-      rowWidthSpec: "Auto",
-      rowHeightSpec: "Auto",
-      resources
-    });
-  } 
+/*function GetData() {
+  const [data, setData] = useState({ apiResponse });
 
+  useEffect(() => {
+   // only need to fetch '/home' because of proxy (in the package.json)
+    fetch("/home")
+    .then(res => res.json())
+    .then(data => setData(data))
+  }, []) 
 
+  return (
+    <div>{data.name}</div>
+    <div>{data.age}</div>
+  )
+} */
   render() {
    const {...config} = this.state;
     return (
       <main>
       <Header />
- { /* <div id="calendar">
-        <DayPilotCalendar {...config} ref={component => { this.calendar = component && component.control; }}/>
-      </div>} */ }
+      <p className="App-intro">;{this.state.apiResponse}</p>
       <Bottom />
       </main>
     );
