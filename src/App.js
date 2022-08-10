@@ -2,12 +2,12 @@
 import React, { Component, useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {DayPilot, DayPilotScheduler, DayPilotCalendar} from "@daypilot/daypilot-lite-react";
-import Header from "./components/Header";
-import Bottom from "./components/Bottom.js";
+import { Schedule } from './Pages/Schedule';
+// import Header from "./components/Header";
+// import Bottom from "./components/Bottom.js";
+import { Container } from '@mui/system';
 import "./App.css";
 import "./index.css"
-import Stack from '@mui/material/Stack';
 import qs from 'qs';
 
 
@@ -47,9 +47,10 @@ componentWillMount() {
    const {...config} = this.state;
     return (
       <main>
-      <Header />
-      <p className="App-intro">;{this.state.apiResponse}</p>
-      <Bottom />
+{ /*            <Header /> */ }
+            <Container fluid>
+                <Schedule />
+            </Container>
       </main>
     );
   }
