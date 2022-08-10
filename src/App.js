@@ -1,5 +1,6 @@
 //logic only
 import React, { Component, useState, useEffect } from "react";
+import { BrowseRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Schedule } from './Pages/Schedule';
@@ -9,6 +10,9 @@ import { Container } from '@mui/system';
 import "./App.css";
 import "./index.css"
 import qs from 'qs';
+
+// admin view
+import Admin from './Pages/admin';
 
 
 class App extends Component {
@@ -46,13 +50,23 @@ componentWillMount() {
   render() {
    const {...config} = this.state;
     return (
+      <div>
+
+  
+      <Router>
+        <Switch>
+          <a to={'/'}>Hallo</a>
+        </Switch>
+      </Router>
       <main>
 { /*            <Header /> */ }
             <Container fluid>
                 <Schedule />
             </Container>
       </main>
+      </div>
     );
+
   }
 }
 export default App;
