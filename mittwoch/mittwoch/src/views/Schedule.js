@@ -25,137 +25,6 @@ import './Schedule.css';
 import Modal from '../components/Modal/Modal';
 import FormikErrorText from '../components/FormikErrorText/FormikErrorText';
 
-/* const Schedule = () => {
-
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const rows = [
-    createData('08:00 - 10:00'),
-    createData('10:00 - 12:00'),
-    createData('12:00 - 14:00'),
-    createData('14:00 - 16:00'),
-    createData('16:00 - 18:00'),
-    createData('18:00 - 20:00')
-  ];
-
-  // get data
-
-  const [post, setPost] = React.useState([]);
-
-  const headers = {
-    "Content-Type": "application/json",
-  };
-  React.useEffect(() => {
-    axios({
-      method: 'get',
-      url: 'http://localhost:8080/api/tests',
-      headers: headers
-    }).then((res) => {
-
-      setPost(res.data);
-    })
-      .catch((err) => { console.log(err) })
-  }, []);
-  const date = ['mo_8', 'mo_10']
-
-
-   const { phone } = this.state;
-  const isEnabled = phone.length > 3; 
-
-  return (
-    <div>
-      {post.map(i => <p key={i.id}>{i.Telefonnummer}</p>)}
-      {date.map(j => <input type="checkbox" name={j} value={j} />)}
-      <Grid container spacing={1} marginTop={4}>
-        <Typography variant="h1">Kontaktanfragenformular</Typography>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                <TableCell></TableCell>
-                  <TableCell align="right">Montag</TableCell>
-                  <TableCell align="right">Dienstag</TableCell>
-                  <TableCell align="right">Mittwoch</TableCell>
-                  <TableCell align="right">Donnerstag</TableCell>
-                  <TableCell align="right">Freitag</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    
-                      {date.map((j) => {
-                      if(j === 'mo_10') {
-                        console.log(j)
-                        return (
-                      <p key={j}></p>
-                      )
-                      }
-                      return (<p key={j}>{j}</p>)
-                  
-                    })} 
-                    <TableCell align="right">{row.carbs}{date.map(j => <input type="checkbox" name={j} value={j} />)}</TableCell>
-                    <TableCell align="right">{row.protein}{date.map(j => <input type="checkbox" name={j} value={j} />)}</TableCell>
-                    <TableCell align="right">{row.fat}{date.map(j => <input type="checkbox" name={j} value={j} />)}</TableCell>
-                    <TableCell align="right">{row.carbs2}{date.map(j => <input type="checkbox" name={j} value={j} />)}</TableCell>
-                    <TableCell align="right">{row.protein2}{date.map(j => <input type="checkbox" name={j} value={j} />)}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
-          <Stack direction="row" justifyContent="right" alignItems="center" spacing={2}>
-            <Typography variant="overline" display="block">
-              Telefonnummer:
-            </Typography>
-            <Input label="Tel." type="tel"/>
-          </Stack>
-        </Grid>
-
-        <Grid container marginTop={4}>
-          <Grid item xs={12} sm={12} md={6} lg={6}>
-            <Buttons
-              size="large"
-              variant="outlined"
-              buttonText="Zurücksetzen"
-              startIcon={<DeleteIcon />}
-              styles={{ width: '50%' }}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={6} lg={6}>
-            <Stack direction="row" justifyContent="right" alignItems="center" spacing={2}>
-              <Buttons
-              // disabled={!isEnabled}
-                size="large"
-                variant="contained"
-                buttonText="Absenden"
-                endIcon={<SendIcon />}
-                styles={{ width: '50%' }}
-                
-              />
-            </Stack>
-          </Grid>
-        </Grid>
-      </Grid>
-    </div>
-  );
-};
-
-
-export default Schedule; */
-
 const Schedule = ({}) => {
 
   // get data
@@ -179,7 +48,7 @@ const Schedule = ({}) => {
  const date = ['mo_8', 'mo_10']
  
 
-  const [showModal, setShowModal] = useState(false);
+/*   const [showModal, setShowModal] = useState(false);
   const [selectedSlots, setSelectedSlots] = useState([]);
   const formik = useFormik({
       enableReinitialze: true,
@@ -190,14 +59,35 @@ const Schedule = ({}) => {
           phonenumber: Yup.string()
               .required('Bitte eine korrekte Telefonnummer eingeben')
               .test('regex', 'Die Nummer ist nicht korrekt', (val) => {
-                  let regExp = new RegExp('^[0-9._+-]*$');
+                  
                   // mind. 4 Zeichen
-                  if(val.length > 4) {
-                  document.getElementById('submitButton').disabled = false;
+                  if(val.length < 4) {
+                    document.getElementById('submitButton').disabled = true;
+                    return false;
                   }
                   
-
+                  let regExp = new RegExp('^[0-9._+-]*$');
                   return regExp.test(val);
+                })
+        }),
+        onSubmit: (values) => {
+            handleSubmit(values);
+        }
+    }); */
+    const [showModal, setShowModal] = useState(false);
+    const [selectedSlots, setSelectedSlots] = useState([]);
+    const formik = useFormik({
+        enableReinitialze: true,
+        initialValues: {
+            phonenumber: ''
+        },
+        validationSchema: Yup.object({
+            phonenumber: Yup.string()
+                .required('Enter phone number')
+                .test('regex', 'Invalid Phone Number', (val) => {
+                    let regExp = new RegExp('^[0-9]*$');
+
+                    return regExp.test(val);
                 })
         }),
         onSubmit: (values) => {
@@ -221,11 +111,16 @@ const Schedule = ({}) => {
           Wunschzeiten: checkeddates.toString(),
           headers:{"Content-Type" : "application/json"}
         }).then((res) => {
+
+          // open my modal
+          setShowModal(true)
+
           console.log(res)
         }).catch((err) => {console.log(err)});
     };
 
     const handleReset = () => {
+      console.log("h");
         formik.setFieldValue('Telefonnummer', '');
         document.getElementById('phonenumber').value = '';
         setSelectedSlots([]);
@@ -245,44 +140,44 @@ const Schedule = ({}) => {
             'Fr08:00-10:00'
         ),
         createData(
-            '10:00 - 12:00',
+            '10:00-12:00',
             'Mo10:00-12:00',
-            'Di 10:00 - 12:00',
-            'Mi 10:00 - 12:00',
-            'Do 10:00 - 12:00',
-            'Fr 10:00 - 12:00'
+            'Di10:00-12:00',
+            'Mi10:00-12:00',
+            'Do10:00-12:00',
+            'Fr10:00-12:00'
         ),
         createData(
-            '12:00 - 14:00',
-            'Mo 12:00 - 14:00',
-            'Di 12:00 - 14:00',
-            'Mi 12:00 - 14:00',
-            'Do 12:00 - 14:00',
-            'Fr 12:00 - 14:00'
+            '12:00-14:00',
+            'Mo12:00-14:00',
+            'Di12:00-14:00',
+            'Mi12:00-14:00',
+            'Do12:00-14:00',
+            'Fr12:00-14:00'
         ),
         createData(
-            '14:00 - 16:00',
-            'Mo 14:00 - 16:00',
-            'Di 14:00 - 16:00',
-            'Mi 14:00 - 16:00',
-            'Do 14:00 - 16:00',
-            'Fr 14:00 - 16:00'
+            '14:00-16:00',
+            'Mo14:00-16:00',
+            'Di14:00-16:00',
+            'Mi14:00-16:00',
+            'Do14:00-16:00',
+            'Fr14:00-16:00'
         ),
         createData(
-            '16:00 - 18:00',
-            'Mo 16:00 - 18:00',
-            'Di 16:00 - 18:00',
-            'Mi 16:00 - 18:00',
-            'Do 16:00 - 18:00',
-            'Fr 16:00 - 18:00'
+            '16:00-18:00',
+            'Mo16:00-18:00',
+            'Di16:00-18:00',
+            'Mi16:00-18:00',
+            'Do16:00-18:00',
+            'Fr16:00-18:00'
         ),
         createData(
-            '18:00 - 20:00',
-            'Mo 18:00 - 20:00',
-            'Di 18:00 - 20:00',
-            'Mi 18:00 - 20:00',
-            'Do 18:00 - 20:00',
-            'Fr 18:00 - 20:00'
+            '18:00-20:00',
+            'Mo18:00-20:00',
+            'Di18:00-20:00',
+            'Mi18:00-20:00',
+            'Do18:00-20:00',
+            'Fr18:00-20:00'
         )
     ];
 
@@ -299,7 +194,7 @@ const Schedule = ({}) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit}>
-                <Grid container spacing={1}>
+                <Grid id="" container spacing={1}>
                     <Typography variant="h1">Kontaktanfragenformular</Typography>
 
                     <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -331,11 +226,7 @@ const Schedule = ({}) => {
                                             <TableRow
                                                 align="center"
                                                 key={row.timeSlot}
-                                                sx={{
-                                                    '&:last-child td, &:last-child th': {
-                                                        border: 0
-                                                    }
-                                                }}
+                                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                             >
                                                 <TableCell component="th" scope="row">
                                                     {row.timeSlot}
@@ -372,7 +263,7 @@ const Schedule = ({}) => {
                                                         'table-cell-bg'
                                                     }
                                                 >
-                                                    {row.mittwoch}
+                                                    {row.mittwoch}<input type="checkbox" name="date" value={row.mittwoch}/>
                                                 </TableCell>
                                                 <TableCell
                                                     align="right"
@@ -383,7 +274,7 @@ const Schedule = ({}) => {
                                                         'table-cell-bg'
                                                     }
                                                 >
-                                                    {row.donnerstag}
+                                                    {row.donnerstag}<input type="checkbox" name="date" value={row.donnerstag}/>
                                                 </TableCell>
                                                 <TableCell
                                                     align="right"
@@ -394,7 +285,7 @@ const Schedule = ({}) => {
                                                         'table-cell-bg'
                                                     }
                                                 >
-                                                    {row.freitag}
+                                                    {row.freitag}<input type="checkbox" name="date" value={row.freitag}/>
                                                 </TableCell>
                                             </TableRow>
                                         );
@@ -431,7 +322,7 @@ const Schedule = ({}) => {
                     <Grid container marginTop={4}>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Buttons
-                                type="button"
+                                type="reset"
                                 size="medium"
                                 variant="outlined"
                                 buttonText="Zurücksetzen"
@@ -439,6 +330,7 @@ const Schedule = ({}) => {
                                 styles={{ width: '50%' }}
                                 handleClick={handleReset}
                             />
+                            <button type="reset">resert</button>
                         </Grid>
 
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -468,8 +360,8 @@ const Schedule = ({}) => {
                 handleContinuePress={() => setShowModal(false)}
                 isShowButtons
                 showContinueBtn
-                modalTilte="Success"
-                modalDescription="Timeslot has been saved successfully !"
+                modalTilte="Gratulation"
+                modalDescription="Die Wunschzeiten wurden erfolgreich eingesendet !"
             />
         </>
     );
