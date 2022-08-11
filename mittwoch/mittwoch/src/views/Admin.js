@@ -47,19 +47,23 @@ function Admin() {
         <div className="admin_ansicht">
             <Grid container spacing={1}>
                 <Typography marginTop={4} variant="h2">Admin-Ansicht des Kontaktanfragenformulars</Typography>
-                <Grid item xs={'auto'} sm={'auto'} md={'auto'} lg={'auto'}>
-                    <TableContainer  marginTop={6} component={Paper}>
-                        <Table align="right" sx={{ minWidth: 'auto' }} aria-label="simple table">
-                       
-                            <TableHead marginTop={6}> Telefonnummer &nbsp;&nbsp; Wunschzeiten &nbsp;&nbsp; Hochgeladen am &nbsp;&nbsp; Löschen </TableHead>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <TableContainer  marginTop={5} component={Paper}>
+                        <Table sx={{ minWidth: 'auto', minHeight: 'auto' }} aria-label="simple table">
+
+                            <TableHead>
+                            <TableRow>
+                            <TableCell align="center">
+                                <div align="center"> <h5>Telefonnummer &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Wunschzeiten &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Hochgeladen am &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Löschen</h5></div></TableCell>
+                            </TableRow>
+                            </TableHead>
                                 <TableBody>{rows.map((row) => (
-                                        <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                            <TableCell component="th" scope="row">{row.name}</TableCell>
+                                        <TableRow key={row.name} sx={ { border: 1 } }>
                                             <TableCell>{row.calories}
                                                 {post.map((i) => {
                                                     return (
-                                                        <div align="left"  key={i.id}>
-                                                            <h4>{i.Telefonnummer}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.Wunschzeiten}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.createdAt}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                                                        <div align="center"  key={i.id}>
+                                                            <h4>{i.Telefonnummer}  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.Wunschzeiten}  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.createdAt} &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                                             <Buttons
                                                             align="left"
                                                             size="medium"

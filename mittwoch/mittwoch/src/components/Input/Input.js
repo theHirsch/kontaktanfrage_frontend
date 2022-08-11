@@ -18,7 +18,7 @@ const Input = ({
             sx={{
                 '& .MuiTextField-root': { m: 1, width: '25ch' }
             }}
-            Validate
+            noValidate
             autoComplete="off"
         >
             <div>
