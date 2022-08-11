@@ -46,7 +46,7 @@ function Admin() {
     return (
         <div className="admin_ansicht">
             <Grid container spacing={1}>
-                <Typography marginTop={4} variant="h2">Admin-Ansicht des Kontaktanfragenformulars</Typography>
+                <Typography marginTop={4} variant="h2">&nbsp;Admin-Ansicht des Kontaktanfragenformulars</Typography>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <TableContainer  marginTop={5} component={Paper}>
                         <Table sx={{ minWidth: 'auto', minHeight: 'auto' }} aria-label="simple table">
