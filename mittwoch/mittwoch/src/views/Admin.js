@@ -16,8 +16,8 @@ import './Admin.css';
 
 function Admin() {
 
-    function createData(Telefonnummer, Tag, Wunschzeiten, Hochgeladen, löschen) {
-        return { Telefonnummer, Tag, Wunschzeiten, Hochgeladen, löschen };
+    function createData(Telefonnummer, Wunschzeiten, Hochgeladen, löschen) {
+        return { Telefonnummer, Wunschzeiten, Hochgeladen, löschen };
     }
 
     const rows = [
@@ -41,8 +41,21 @@ function Admin() {
             console.log(res.data, this.data);
         })
             .catch((err) => { console.log(err) })
-    }, []);
-
+    }, []);/* 
+    doucment.getElementById('läschen',).addEventListener('click', () => {
+        React.useEffect(() => {
+            // DELETE request using axios inside useEffect React hook
+            axios.delete('http://localhost:8080/api/tests/1')
+                .then(() => console.log('Delete successful'));
+        
+        // empty dependency array means this effect will only run once (like componentDidMount in classes)
+        }, []);
+    }) */
+    const deleteItem = (val) => {
+        console.log('FUNZT')
+        axios.delete('http://localhost:8080/api/tests/' + val)
+                .then(() => console.log('Delete successful'));
+    }
     return (
         <div className="admin_ansicht">
             <Grid container spacing={1}>
@@ -63,14 +76,17 @@ function Admin() {
                                                 {post.map((i) => {
                                                     return (
                                                         <div align="left"  key={i.id}>
-                                                            <h4>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{i.Telefonnummer} &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.Tag } { i.Wunschzeiten}  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; {i.createdAt}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                                            <Buttons
+                                                            <h4>&nbsp;{i.id} &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{i.Telefonnummer} &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.Wunschzeiten}  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; {i.createdAt}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                                        <Buttons
                                                             align="left"
                                                             size="medium"
                                                             variant="outlined"
                                                             buttonText=""
                                                             endIcon={<DeleteIcon />}
-                                                            />
+                                                            handleClick={deleteItem(i.id)}
+                                                            /> 
+                                                            
+                                                        
                                                             </h4>
                                                         </div>
                                                     );
@@ -83,6 +99,7 @@ function Admin() {
                     </TableContainer>
                 </Grid>
             </Grid>
+            {/* <button type="button" handleClick={läschen(28)}>Läschen</button> */}
         </div>
     );
 }

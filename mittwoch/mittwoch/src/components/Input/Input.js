@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -8,30 +9,27 @@ const Input = ({
     defaultValue = '',
     value = '',
     handleChange = () => {},
+    handleBlur = () => {},
     messageText = '',
     label = 'input',
-    size = 'medium'
+    size = 'small',
+    name = ''
 }) => {
     return (
-        <Box
-            component="form"
-            sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' }
-            }}
-            noValidate
-            autoComplete="off"
-        >
-            <div>
-                <TextField
-                    size={size}
-                    error={isError}
-                    id={id}
-                    label={label}
-                    defaultValue={defaultValue}
-                    helperText={messageText}
-                />
-            </div>
-        </Box>
+        <div>
+            <TextField
+                name={name}
+                size={size}
+                error={isError}
+                id={id}
+                label={label}
+                defaultValue={defaultValue}
+                helperText={messageText}
+                value={value}
+                onChange={handleChange}
+                onBlur={handleBlur}
+            />
+        </div>
     );
 };
 
