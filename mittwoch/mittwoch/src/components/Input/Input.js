@@ -10,7 +10,7 @@ const Input = ({
     handleChange = () => {},
     messageText = '',
     label = 'input',
-    size = 'small'
+    size = 'medium'
 }) => {
     return (
         <Box
@@ -18,7 +18,7 @@ const Input = ({
             sx={{
                 '& .MuiTextField-root': { m: 1, width: '25ch' }
             }}
-            noValidate
+            Validate
             autoComplete="off"
         >
             <div>

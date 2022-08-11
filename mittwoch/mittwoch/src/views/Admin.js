@@ -10,19 +10,18 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SendIcon from '@mui/icons-material/Send';
 import Buttons from '../components/Button/Buttons';
-import Input from '../components/Input/Input';
 import axios from 'axios';
+import './Admin.css';
 
 function Admin() {
 
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
+    function createData(Telefonnummer, Wunschzeiten, Hochgeladen, löschen) {
+        return { Telefonnummer, Wunschzeiten, Hochgeladen, löschen };
     }
 
     const rows = [
-        createData('id'),
+        createData(''),
 
     ];
     // get data
@@ -46,61 +45,38 @@ function Admin() {
 
     return (
         <div className="admin_ansicht">
-            {post.map((i) => {
-                return (
-                    <div key={i.id}>
-                        <p>{i.Telefonnummer}</p>
-                        <p>{i.Wunschzeiten}</p>
-                        <p>{i.createdAt}</p>
-                    </div>
-                )
-            })}
             <Grid container spacing={1}>
-                <Typography variant="h1">Admin-Ansicht des Kontaktanfragenformulars</Typography>
-                <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell></TableCell>
-                                    <TableCell align="right">Telefonnummer</TableCell>
-                                    <TableCell align="right">Wunschzeiten</TableCell>
-                                    <TableCell align="right">Hochgeladen am</TableCell>
-                                    <TableCell align="right">Löschen</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="right">{row.calories}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        <TableCell align="right">{row.carbs}</TableCell>
-                                        <TableCell align="right">{row.protein}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        <TableCell align="right">{row.carbs}</TableCell>
-                                        <TableCell align="right">{row.protein}</TableCell>
-                                    </TableRow>
+                <Typography marginTop={4} variant="h2">Admin-Ansicht des Kontaktanfragenformulars</Typography>
+                <Grid item xs={'auto'} sm={'auto'} md={'auto'} lg={'auto'}>
+                    <TableContainer  marginTop={6} component={Paper}>
+                        <Table align="right" sx={{ minWidth: 'auto' }} aria-label="simple table">
+                       
+                            <TableHead marginTop={6}> Telefonnummer &nbsp;&nbsp; Wunschzeiten &nbsp;&nbsp; Hochgeladen am &nbsp;&nbsp; Löschen </TableHead>
+                                <TableBody>{rows.map((row) => (
+                                        <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                            <TableCell component="th" scope="row">{row.name}</TableCell>
+                                            <TableCell>{row.calories}
+                                                {post.map((i) => {
+                                                    return (
+                                                        <div align="left"  key={i.id}>
+                                                            <h4>{i.Telefonnummer}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.Wunschzeiten}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.createdAt}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                                                            <Buttons
+                                                            align="left"
+                                                            size="medium"
+                                                            variant="outlined"
+                                                            buttonText=""
+                                                            endIcon={<DeleteIcon />}
+                                                            />
+                                                            </h4>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </TableCell>
+                                        </TableRow>
                                 ))}
-                            </TableBody>
+                                </TableBody>
                         </Table>
                     </TableContainer>
-                </Grid>
-                <Grid container marginTop={4}>
-                    <Grid item xs={12} sm={12} md={6} lg={6}>
-                        <Buttons
-                            size="medium"
-                            variant="outlined"
-                            buttonText=""
-                            startIcon={<DeleteIcon />}
-                            styles={{ width: '50%' }}
-                        />
-                    </Grid>
                 </Grid>
             </Grid>
         </div>

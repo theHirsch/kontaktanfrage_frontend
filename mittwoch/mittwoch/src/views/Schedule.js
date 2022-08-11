@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import { useForm, Controller } from "react-hook-form";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-phone-number-input/style.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -50,18 +54,22 @@ const Schedule = () => {
   }, []);
   const date = ['mo_8', 'mo_10']
 
+
+/*   const { phone } = this.state;
+  const isEnabled = phone.length > 3; */
+
   return (
     <div>
       {post.map(i => <p key={i.id}>{i.Telefonnummer}</p>)}
       {date.map(j => <input type="checkbox" name={j} value={j} />)}
-      <Grid container spacing={1}>
+      <Grid container spacing={1} marginTop={4}>
         <Typography variant="h1">Kontaktanfragenformular</Typography>
         <Grid item xs={12} sm={12} md={12} lg={12}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
+                <TableCell></TableCell>
                   <TableCell align="right">Montag</TableCell>
                   <TableCell align="right">Dienstag</TableCell>
                   <TableCell align="right">Mittwoch</TableCell>
@@ -107,14 +115,14 @@ const Schedule = () => {
             <Typography variant="overline" display="block">
               Telefonnummer:
             </Typography>
-            <Input label="Tel." />
+            <Input label="Tel." type="tel"/>
           </Stack>
         </Grid>
 
         <Grid container marginTop={4}>
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <Buttons
-              size="medium"
+              size="large"
               variant="outlined"
               buttonText="Zurücksetzen"
               startIcon={<DeleteIcon />}
@@ -125,7 +133,8 @@ const Schedule = () => {
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <Stack direction="row" justifyContent="right" alignItems="center" spacing={2}>
               <Buttons
-                size="medium"
+              // disabled={!isEnabled}
+                size="large"
                 variant="contained"
                 buttonText="Absenden"
                 endIcon={<SendIcon />}
@@ -138,5 +147,6 @@ const Schedule = () => {
     </div>
   );
 };
+
 
 export default Schedule;
