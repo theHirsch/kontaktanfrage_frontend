@@ -16,8 +16,8 @@ import './Admin.css';
 
 function Admin() {
 
-    function createData(Telefonnummer, Wunschzeiten, Hochgeladen, löschen) {
-        return { Telefonnummer, Wunschzeiten, Hochgeladen, löschen };
+    function createData(Telefonnummer, Tag, Wunschzeiten, Hochgeladen, löschen) {
+        return { Telefonnummer, Tag, Wunschzeiten, Hochgeladen, löschen };
     }
 
     const rows = [
@@ -59,11 +59,11 @@ function Admin() {
                             </TableHead>
                                 <TableBody>{rows.map((row) => (
                                         <TableRow key={row.name} sx={ { border: 2 } }>
-                                            <TableCell className="Zelle">{row.calories}
+                                            <TableCell>{row.calories}
                                                 {post.map((i) => {
                                                     return (
                                                         <div align="left"  key={i.id}>
-                                                            <h4>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{i.Telefonnummer} &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.Wunschzeiten}  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; {i.createdAt} &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                                            <h4>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{i.Telefonnummer} &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {i.Tag } { i.Wunschzeiten}  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; {i.createdAt}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                                             <Buttons
                                                             align="left"
                                                             size="medium"
