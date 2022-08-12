@@ -1,6 +1,8 @@
-/*  .table-cell-bg{
+/* 
+    .table-cell-bg{
     background-color: chartreuse;
 } */
+
 
 input[type=checkbox] {
     -webkit-appearance: none;
@@ -10,12 +12,12 @@ input[type=checkbox] {
     display: inline-block;
     width: 75px;
     height: 75px;
-    padding: 1px;
+    padding: 5px;
     /* background-color only for content */
     /*background-clip: content-box;*/
-    border: none;
-    border-radius: none;
-    background-color: #ffffff;
+    border: black;
+    border-radius: 1px;
+    background-color: #d1d1d1;
     /*margin-left: 15px;
     margin-right: 15px;*/
 }

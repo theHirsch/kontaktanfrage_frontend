@@ -45,10 +45,10 @@ const Schedule = ({}) => {
    })
      .catch((err) => { console.log(err) })
  }, []);
- const date = ['mo_8', 'mo_10']
  
 
     const [showModal, setShowModal] = useState(false);
+    const valid = 0;
     const [selectedSlots, setSelectedSlots] = useState([]);
     const formik = useFormik({
         enableReinitialze: true,
@@ -57,10 +57,12 @@ const Schedule = ({}) => {
         },
         validationSchema: Yup.object({
             phonenumber: Yup.string()
+              .min(4, 'Zu kurz!')
+            
                 .required('Telefonnummer vergessen')
                 .test('regex', 'Bitte korrekte Telennummer eingeben', (val) => {
                     let regExp = new RegExp('^[0-9._+-]*$');
-
+                    if(document.getElementById('phonenumber').value.length > 4) {this.valid++;}
                     return regExp.test(val);
                 })
         }),
@@ -69,22 +71,61 @@ const Schedule = ({}) => {
         }
     });
 
-    const handleSubmit = (values) => {
+/*     const handleSubmit = (values) => {
         // API call
         console.log(values);
         const dates = document.querySelectorAll('input[name="date"]')
         const checkeddates = []
         for (let i = 0; i < dates.length; i++) {
+          if(i <= 5) {
+            console.log(dates[i*5])
+            if (dates[i*5].checked) {
+              checkeddates.push(dates[i*5].value)
+            }
+          }
+          if (5 < i <= 10) {
+            console.log(dates[(i-6) *5 + 1])
+            if (dates[(i-6) *5 + 1].checked) {
+              checkeddates.push(dates[(i-6) *5 + 1].value)
+            }
+          }
+          if (10 < i <= 15) {
+            console.log(dates[(i-11) *5 + 2])
+          }
+          if (15 < i <= 20) {
+            console.log(dates[(i-16) *5 + 3])
+          }
+          if (20 < i <= 25) {
+            console.log(dates[(i-21) *5 + 4])
+          }
           if (dates[i].checked) {
             checkeddates.push(dates[i].value)
           }
         }
+
         console.log(checkeddates);
         axios.post('http://localhost:8080/api/tests', {
           Telefonnummer: document.getElementById('phonenumber').value,
           Wunschzeiten: checkeddates.toString(),
           headers:{"Content-Type" : "application/json"}
-        }).then((res) => {
+        }).then((res) => { */
+
+           const handleSubmit = (values) => {
+            // API call
+            console.log(values);
+            const dates = document.querySelectorAll('input[name="date"]')
+            const checkeddates = []
+            for (let i = 0; i < dates.length; i++) {
+              if (dates[i].checked) {
+                checkeddates.push(dates[i].value)
+              }
+            }
+            console.log(checkeddates);
+            axios.post('http://localhost:8080/api/tests', {
+              Telefonnummer: document.getElementById('phonenumber').value,
+              Wunschzeiten: checkeddates.toString(),
+              headers:{"Content-Type" : "application/json"}
+            }).then((res) => {           
 
           // open modal
           setShowModal(true)
@@ -95,9 +136,9 @@ const Schedule = ({}) => {
     // reset pickedslots|checkboxes & input field (telephone)
     const handleReset = () => {
       console.log("h");
-        formik.setFieldValue('phonenumber', '');
-        document.getElementById('phonenumber').value = '';
+        formik.setFieldValue('phonenumber', formik.initialValues.phonenumber);
         setSelectedSlots([]);
+        formik.setTouched({}, false);
     };
 
     function createData(timeSlot, montag, dienstag, mittwoch, donnerstag, freitag) {
@@ -175,7 +216,7 @@ const Schedule = ({}) => {
                     <Grid item xs={'auto'} sm={'auto'} md={'auto'} lg={12}>
                         <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableHead sx={{ bgcolor: '#b4a4d9' }}>
+                                <TableHead sx={{ bgcolor: '#a4bef2' }}>
                                     <TableRow align="center">
                                         <TableCell
                                         sx={{fontSize: 'medium'}} align="center" id="Montag">
@@ -204,67 +245,62 @@ const Schedule = ({}) => {
                                             <TableRow 
                                                 align="center"
                                                 key={row.timeSlot}
-                                                sx={{ bgcolor: '#000000' }}
+                                                sx={{ bgcolor: ' ' }}
                                             >
-                                                <TableCell component="th" scope="row" sx={{ bgcolor: '#bdffba', fontSize: 'medium' }}>
+                                                <TableCell align="center" component="th" scope="row" sx={{ bgcolor: '#bdffba', fontSize: 'medium' }}>
                                                     {row.timeSlot}
                                                 </TableCell>
                                                 <TableCell
+                                                    align="center"
                                                     component="th"
                                                     scope="row"
-                                                    // onClick={handleCellClick}
                                                     id={row.montag}
                                                     className={
                                                         selectedSlots.includes(row.montag) &&
                                                         'table-cell-bg'
                                                     }
                                                 >
-                                                    {row.montag} <input type="checkbox" name="date" value={row.montag}/>
+                                                    <span className="hidden">{row.montag}</span> <input type="checkbox" name="date" value={row.montag}/>
                                                 </TableCell>
                                                 <TableCell
-                                                
-                                                    align="right"
-                                                    // onClick={handleCellClick}
+                                                    align="center"
                                                     id={row.dienstag}
                                                     className={
                                                         selectedSlots.includes(row.dienstag) &&
                                                         'table-cell-bg'
                                                     }
                                                 >
-                                                    {row.dienstag}<input type="checkbox" name="date" value={row.dienstag}/>
+                                                   <span className="hidden">{row.dienstag}</span><input type="checkbox" name="date" value={row.dienstag}/>
                                                 </TableCell>
                                                 <TableCell
-                                                    align="right"
-                                                    // onClick={handleCellClick}
+                                                    align="center"
                                                     id={row.mittwoch}
                                                     className={
                                                         selectedSlots.includes(row.mittwoch) &&
                                                         'table-cell-bg'
                                                     }
                                                 >
-                                                    {row.mittwoch}<input type="checkbox" name="date" value={row.mittwoch}/>
+                                                   <span className="hidden">{row.mittwoch}</span><input type="checkbox" name="date" value={row.mittwoch}/>
                                                 </TableCell>
                                                 <TableCell
-                                                    align="right"
-                                                    // onClick={handleCellClick}
+                                                    align="center"
                                                     id={row.donnerstag}
                                                     className={
                                                         selectedSlots.includes(row.donnerstag) &&
                                                         'table-cell-bg'
                                                     }
                                                 >
-                                                    {row.donnerstag}<input type="checkbox" name="date" value={row.donnerstag}/>
+                                                   <span className="hidden">{row.donnerstag}</span><input type="checkbox" name="date" value={row.donnerstag}/>
                                                 </TableCell>
                                                 <TableCell
-                                                    align="right"
-                                                    // onClick={handleCellClick}
+                                                    align="center"
                                                     id={row.freitag}
                                                     className={
                                                         selectedSlots.includes(row.freitag) &&
                                                         'table-cell-bg'
                                                     }
                                                 >
-                                                    {row.freitag}<input type="checkbox" name="date" value={row.freitag}/>
+                                                   <span className="hidden">{row.freitag}</span><input type="checkbox" name="date" value={row.freitag}/>
                                                 </TableCell>
                                             </TableRow>
                                         );
@@ -343,5 +379,4 @@ const Schedule = ({}) => {
         </>
     );
 };
-
 export default Schedule;

@@ -56,7 +56,7 @@ function Admin() {
                     post.splice(post.findIndex(post => post.id === val), 1);
 
                     console.log('Delete successful')
-                    
+                    window.location.reload();
                 });
     }
 /* 
@@ -64,7 +64,9 @@ function Admin() {
         formatter = new Intl.DateTimeFormat("en-GB", {
                 year: "numeric",
                 month: "long",
-                day: "2-digit"
+                day: "2-digit",
+                hour: "numeric",
+                minute: "numeric",
               });
       
         render() {
@@ -82,6 +84,14 @@ function Admin() {
         }
       }
  */
+function datum (value) {
+    
+    let options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hours: 'numeric', minutes: 'numeric', seconds: 'numeric'};
+    
+    console.log(navigator.language);
+
+    return (new Date(value).toLocaleDateString(navigator.language, options), new Date(value).toLocaleTimeString(navigator.language, options))
+}
 // View B (Admin) output (table)
     return (
         <div className="admin_ansicht">
@@ -124,7 +134,7 @@ function Admin() {
                                             {i.Wunschzeiten}
                                         </TableCell>
                                         <TableCell>
-                                            {i.createdAt}
+                                            {datum(i.createdAt)}
                                         </TableCell>
                                         <TableCell>
                                             <Buttons
