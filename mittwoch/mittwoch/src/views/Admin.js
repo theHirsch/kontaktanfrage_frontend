@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -11,23 +12,24 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Buttons from '../components/Button/Buttons';
 import axios from 'axios';
+import TimeFormatter from '../components/Datum/Datum';
 import './Admin.css';
-import { render } from '@testing-library/react';
 
 function Admin() {
 
     function createData(Telefonnummer, Wunschzeiten, Hochgeladen, deleteAction) {
         return { Telefonnummer, Wunschzeiten, Hochgeladen, deleteAction };
     }
-
+     
     const rows = [
         'id',
-       'phonenumber',
-       'time',
-       'uploaded_at',
-       'deletedAction'
+        'phonenumber',
+        'time',
+        'uploaded_at',
+        'deletedAction'
     ];
-    // get data
+
+// Get and Post data between db and view B
     const [post, setPost] = React.useState([]);
 
     const headers = {
@@ -45,6 +47,7 @@ function Admin() {
             .catch((err) => { console.log(err) })
     }, []);
 
+// Delete item (id) and log if successful 
     const deleteItem = (val) => {
     
         console.log('FUNZT')
@@ -56,6 +59,30 @@ function Admin() {
                     
                 });
     }
+/* 
+    class TimeFormatter extends React.Component {
+        formatter = new Intl.DateTimeFormat("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "2-digit"
+              });
+      
+        render() {
+          const dateString = "2019-10-30T14:01:59.689Z";
+      
+          return (
+            <div>
+              Using <code>Date.parse</code>: {this.formatter.format(Date.parse(dateString))}
+              <br />
+              <em>OR</em>
+              <br />
+              Using <code>new Date</code>: {this.formatter.format(new Date(dateString))}
+            </div>
+          );
+        }
+      }
+ */
+// View B (Admin) output (table)
     return (
         <div className="admin_ansicht">
             <Grid container spacing={1}>
@@ -64,9 +91,9 @@ function Admin() {
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <TableContainer  marginTop={5} component={Paper}>
                         <Table sx={{ minWidth: 'auto', minHeight: 'auto' }} aria-label="simple table">
-                            <TableHead>
-                                <TableRow key="header_row">
-                                    <TableCell sx={ { border: 1 } }>
+                            <TableHead className="th_header">
+                                <TableRow sx={{ bgcolor: '#ffafaf' }} id="header_row_id" key="header_row">
+                                    <TableCell sx={{ border: 1 }}>
                                         ID
                                     </TableCell>
                                     <TableCell sx={ { border: 1 } }>
@@ -83,6 +110,7 @@ function Admin() {
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
+{/* new row with new db input and delete button*/}
                                 <TableBody>{post.map((i) => {
                                     return (
                                         <TableRow key={i.id} sx={ { border: 2 } }>

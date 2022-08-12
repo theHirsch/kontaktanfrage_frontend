@@ -20,7 +20,7 @@ import Input from '../components/Input/Input';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-
+import Button from '@mui/material/Button';
 import './Schedule.css';
 import Modal from '../components/Modal/Modal';
 import FormikErrorText from '../components/FormikErrorText/FormikErrorText';
@@ -48,32 +48,6 @@ const Schedule = ({}) => {
  const date = ['mo_8', 'mo_10']
  
 
-/*   const [showModal, setShowModal] = useState(false);
-  const [selectedSlots, setSelectedSlots] = useState([]);
-  const formik = useFormik({
-      enableReinitialze: true,
-      initialValues: {
-          phonenumber: ''
-      },
-      validationSchema: Yup.object({
-          phonenumber: Yup.string()
-              .required('Bitte eine korrekte Telefonnummer eingeben')
-              .test('regex', 'Die Nummer ist nicht korrekt', (val) => {
-                  
-                  // mind. 4 Zeichen
-                  if(val.length < 4) {
-                    document.getElementById('submitButton').disabled = true;
-                    return false;
-                  }
-                  
-                  let regExp = new RegExp('^[0-9._+-]*$');
-                  return regExp.test(val);
-                })
-        }),
-        onSubmit: (values) => {
-            handleSubmit(values);
-        }
-    }); */
     const [showModal, setShowModal] = useState(false);
     const [selectedSlots, setSelectedSlots] = useState([]);
     const formik = useFormik({
@@ -83,9 +57,9 @@ const Schedule = ({}) => {
         },
         validationSchema: Yup.object({
             phonenumber: Yup.string()
-                .required('Enter phone number')
-                .test('regex', 'Invalid Phone Number', (val) => {
-                    let regExp = new RegExp('^[0-9]*$');
+                .required('Telefonnummer vergessen')
+                .test('regex', 'Bitte korrekte Telennummer eingeben', (val) => {
+                    let regExp = new RegExp('^[0-9._+-]*$');
 
                     return regExp.test(val);
                 })
@@ -96,7 +70,7 @@ const Schedule = ({}) => {
     });
 
     const handleSubmit = (values) => {
-        // API call will be here
+        // API call
         console.log(values);
         const dates = document.querySelectorAll('input[name="date"]')
         const checkeddates = []
@@ -112,16 +86,16 @@ const Schedule = ({}) => {
           headers:{"Content-Type" : "application/json"}
         }).then((res) => {
 
-          // open my modal
+          // open modal
           setShowModal(true)
 
           console.log(res)
         }).catch((err) => {console.log(err)});
     };
-
+    // reset pickedslots|checkboxes & input field (telephone)
     const handleReset = () => {
       console.log("h");
-        formik.setFieldValue('Telefonnummer', '');
+        formik.setFieldValue('phonenumber', '');
         document.getElementById('phonenumber').value = '';
         setSelectedSlots([]);
     };
@@ -194,28 +168,32 @@ const Schedule = ({}) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit}>
-                <Grid id="" container spacing={1}>
-                    <Typography variant="h1">Kontaktanfragenformular</Typography>
-
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Grid id="containerH1" container spacing={0} sx={{ bgcolor: '' }}>
+                    <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={1} variant="h2">Kontaktanfragenformular</Typography>
+                  <Grid id="containerText" container spacing={1}>
+                  <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={2} align="center" variant="h6" lg={12}>&nbsp;&nbsp;Bitte wählen Sie ihre Wunschkontaktzeiträume in der Tabelle aus, tragen Sie ihre Telefonnummer im dafür vorgesehenen Feld ein und klicken Sie auf absenden!</Typography>
+                    <Grid item xs={'auto'} sm={'auto'} md={'auto'} lg={12}>
                         <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table" border>
-                                <TableHead>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead sx={{ bgcolor: '#b4a4d9' }}>
                                     <TableRow align="center">
-                                        <TableCell></TableCell>
-                                        <TableCell align="right" id="Montag">
+                                        <TableCell
+                                        sx={{fontSize: 'medium'}} align="center" id="Montag">
+                                            Uhrzeit
+                                        </TableCell>
+                                        <TableCell sx={{fontSize: 'medium'}} align="center" id="Montag">
                                             Montag
                                         </TableCell>
-                                        <TableCell align="right" id="Dienstag">
+                                        <TableCell sx={{fontSize: 'medium'}} align="center" id="Dienstag">
                                             Dienstag
                                         </TableCell>
-                                        <TableCell align="right" id="Mittwoch">
+                                        <TableCell sx={{fontSize: 'medium'}} align="center" id="Mittwoch">
                                             Mittwoch
                                         </TableCell>
-                                        <TableCell align="right" id="Donnerstag">
+                                        <TableCell sx={{fontSize: 'medium'}} align="center" id="Donnerstag">
                                             Donnerstag
                                         </TableCell>
-                                        <TableCell align="right" id="Freitag">
+                                        <TableCell sx={{fontSize: 'medium'}} align="center" id="Freitag">
                                             Freitag
                                         </TableCell>
                                     </TableRow>
@@ -223,18 +201,18 @@ const Schedule = ({}) => {
                                 <TableBody>
                                     {rows.map((row, index) => {
                                         return (
-                                            <TableRow
+                                            <TableRow 
                                                 align="center"
                                                 key={row.timeSlot}
-                                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                                sx={{ bgcolor: '#000000' }}
                                             >
-                                                <TableCell component="th" scope="row">
+                                                <TableCell component="th" scope="row" sx={{ bgcolor: '#bdffba', fontSize: 'medium' }}>
                                                     {row.timeSlot}
                                                 </TableCell>
                                                 <TableCell
                                                     component="th"
                                                     scope="row"
-                                                    onClick={handleCellClick}
+                                                    // onClick={handleCellClick}
                                                     id={row.montag}
                                                     className={
                                                         selectedSlots.includes(row.montag) &&
@@ -244,8 +222,9 @@ const Schedule = ({}) => {
                                                     {row.montag} <input type="checkbox" name="date" value={row.montag}/>
                                                 </TableCell>
                                                 <TableCell
+                                                
                                                     align="right"
-                                                    onClick={handleCellClick}
+                                                    // onClick={handleCellClick}
                                                     id={row.dienstag}
                                                     className={
                                                         selectedSlots.includes(row.dienstag) &&
@@ -256,7 +235,7 @@ const Schedule = ({}) => {
                                                 </TableCell>
                                                 <TableCell
                                                     align="right"
-                                                    onClick={handleCellClick}
+                                                    // onClick={handleCellClick}
                                                     id={row.mittwoch}
                                                     className={
                                                         selectedSlots.includes(row.mittwoch) &&
@@ -267,7 +246,7 @@ const Schedule = ({}) => {
                                                 </TableCell>
                                                 <TableCell
                                                     align="right"
-                                                    onClick={handleCellClick}
+                                                    // onClick={handleCellClick}
                                                     id={row.donnerstag}
                                                     className={
                                                         selectedSlots.includes(row.donnerstag) &&
@@ -278,7 +257,7 @@ const Schedule = ({}) => {
                                                 </TableCell>
                                                 <TableCell
                                                     align="right"
-                                                    onClick={handleCellClick}
+                                                    // onClick={handleCellClick}
                                                     id={row.freitag}
                                                     className={
                                                         selectedSlots.includes(row.freitag) &&
@@ -295,14 +274,14 @@ const Schedule = ({}) => {
                         </TableContainer>
                     </Grid>
 
-                    <Grid container marginTop={4} marginLeft={110} item xs={12} sm={12} md={12} lg={12}>
+                    <Grid container marginTop={2} marginLeft={110} item xs={12} sm={12} md={12} lg={12}>
                         <Stack
                             direction="row"
                             justifyContent="left"
                             alignItems="center"
                             spacing={2}
                         >
-                            <Typography variant="overline" display="block">
+                            <Typography variant="h6">
                                 Ihre Telefonnummer:
                             </Typography>
                             <div>
@@ -321,18 +300,15 @@ const Schedule = ({}) => {
 
                     <Grid container marginTop={4}>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Buttons
-                                type="reset"
-                                size="medium"
-                                variant="outlined"
-                                buttonText="Zurücksetzen"
-                                startIcon={<DeleteIcon />}
-                                styles={{ width: '50%' }}
-                                handleClick={handleReset}
-                            />
-                            <button type="reset">resert</button>
+                        <Button 
+                        sx={{ color: '#c30001' }}
+                        type ="reset" 
+                        variant="outlined" 
+                        startIcon={<DeleteIcon />} 
+                        onClick={handleReset}
+                        >Zurücksetzen  
+                        </Button>
                         </Grid>
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Stack
                                 direction="row"
@@ -352,6 +328,7 @@ const Schedule = ({}) => {
                             </Stack>
                         </Grid>
                     </Grid>
+                  </Grid>
                 </Grid>
             </form>
             <Modal
@@ -360,8 +337,8 @@ const Schedule = ({}) => {
                 handleContinuePress={() => setShowModal(false)}
                 isShowButtons
                 showContinueBtn
-                modalTilte="Gratulation"
-                modalDescription="Die Wunschzeiten wurden erfolgreich eingesendet !"
+                modalTilte="Gratulation!"
+                modalDescription="Ihre Wunschzeiten wurden erfolgreich eingesendet !"
             />
         </>
     );
