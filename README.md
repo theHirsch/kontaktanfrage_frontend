@@ -1,6 +1,6 @@
 # Kontaktanfragenformular mit wählbaren Rückruf-Timeslots - Client side
  
-Nachdem die Datenbank erstellt bzw. geladen wurde und der Server gestartet wurde (erklärt in "https://github.com/theHirsch/kontaktanfrage_backend") sollten Sie dieses Repository clonen mit folgendem Befehl in einem Terminal Ihrer Wahl:
+Nachdem die Datenbank erstellt bzw. geladen und der Server gestartet wurde (erklärt in "https://github.com/theHirsch/kontaktanfrage_backend") sollten Sie dieses Repository clonen mit folgendem Befehl in einem Terminal Ihrer Wahl:
 
 ```sh
 git clone https://github.com/theHirsch/kontaktanfrage_frontend.git
