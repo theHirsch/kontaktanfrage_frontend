@@ -27,12 +27,12 @@ Ich wünsche Ihnen viel Spaß mit meiner kleinen App :)
  
 After the database is created/loaded and the server is started (explained in "https://github.com/theHirsch/kontaktanfrage_backend") you should clone this repository with the following command in a terminal of your choice:
 
-``sh
+```sh
 git clone https://github.com/theHirsch/kontaktanfrage_frontend.git
 ```
 Now to install all important dependencies for this app and use it afterwards without any problems, please use the following command in your terminal, in the repository directory:
 
-``sh
+```sh
 npm install --save --force
 ```
 Now that you have installed all dependencies you can start the app with the following command:
