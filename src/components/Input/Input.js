@@ -1,8 +1,8 @@
-
 import React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
+//Input defaults for the phone textfield with the materialUI component "TextField"
 const Input = ({
     isError = false,
     id = '',

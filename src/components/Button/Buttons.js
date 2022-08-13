@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 
+// Button defaults for the materialUI component "Button"
 const Buttons = ({
     variant = 'text',
     buttonText = 'Button Text',

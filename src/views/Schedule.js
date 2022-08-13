@@ -1,3 +1,4 @@
+// Imports data from components, .css file and libraries used for the Schedule View
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { useForm, Controller } from "react-hook-form";
@@ -25,9 +26,10 @@ import './Schedule.css';
 import Modal from '../components/Modal/Modal';
 import FormikErrorText from '../components/FormikErrorText/FormikErrorText';
 
+// Full Schedule View 
 const Schedule = ({}) => {
 
-  // get data
+// Get data from backend here, thanks Axios
 
  const [post, setPost] = React.useState([]);
 
@@ -46,7 +48,7 @@ const Schedule = ({}) => {
      .catch((err) => { console.log(err) })
  }, []);
  
-
+// Validation with formik-bib for the phonenumber input (components/FormikErrorText)
     const [showModal, setShowModal] = useState(false);
     const valid = 0;
     const [selectedSlots, setSelectedSlots] = useState([]);
@@ -110,7 +112,8 @@ const Schedule = ({}) => {
           headers:{"Content-Type" : "application/json"}
         }).then((res) => { */
 
-           const handleSubmit = (values) => {
+// Send data to api and show the modal when clicking the "Send" button
+        const handleSubmit = (values) => {
             // API call
             console.log(values);
             const dates = document.querySelectorAll('input[name="date"]')
@@ -127,24 +130,24 @@ const Schedule = ({}) => {
               headers:{"Content-Type" : "application/json"}
             }).then((res) => {           
 
-          // open modal
+// Open modal (modal in components)
           setShowModal(true)
 
           console.log(res)
         }).catch((err) => {console.log(err)});
     };
-    // reset pickedslots|checkboxes & input field (telephone)
+// Reset for pickedslots|checkboxes & input field (telephone)
     const handleReset = () => {
       console.log("h");
         formik.setFieldValue('phonenumber', formik.initialValues.phonenumber);
         setSelectedSlots([]);
         formik.setTouched({}, false);
     };
-
+// Create data for table-rows.. 
     function createData(timeSlot, montag, dienstag, mittwoch, donnerstag, freitag) {
         return { timeSlot, montag, dienstag, mittwoch, donnerstag, freitag };
     }
-
+// ..and how to save them in the backend
     const rows = [
         createData(
             '08:00-10:00',
@@ -196,24 +199,15 @@ const Schedule = ({}) => {
         )
     ];
 
-    const handleCellClick = (e) => {
-        let slot = e.target.innerText;
-
-        if (selectedSlots.includes(slot)) {
-            setSelectedSlots((prev) => prev.filter((item) => item !== slot));
-        } else {
-            setSelectedSlots((prev) => [...prev, slot]);
-        }
-    };
-
+// Table with Tablehead for the weekdays and Tablebody for the time (TableRow) and clickable Checkboxes for the user
     return (
         <>
             <form onSubmit={formik.handleSubmit}>
                 <Grid id="containerH1" container spacing={0} sx={{ bgcolor: '' }}>
                     <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={1} variant="h2">Kontaktanfragenformular</Typography>
                   <Grid id="containerText" container spacing={1}>
-                  <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={2} align="center" variant="h6" lg={12}>&nbsp;&nbsp;Bitte wählen Sie ihre Wunschkontaktzeiträume in der Tabelle aus, tragen Sie ihre Telefonnummer im dafür vorgesehenen Feld ein und klicken Sie auf absenden!</Typography>
-                    <Grid item xs={'auto'} sm={'auto'} md={'auto'} lg={12}>
+                  <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={2} align="center" variant="h6">&nbsp;&nbsp;Bitte wählen Sie ihre Wunschkontaktzeiträume in der Tabelle aus, tragen Sie ihre Telefonnummer im dafür vorgesehenen Feld ein und klicken Sie auf absenden!</Typography>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
                         <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                 <TableHead sx={{ bgcolor: '#a4bef2' }}>
@@ -309,7 +303,7 @@ const Schedule = ({}) => {
                             </Table>
                         </TableContainer>
                     </Grid>
-
+{/** Grid for the telephone Input (components/Input) and the two Buttons "Reset" and "Send" (components/Button) */}
                     <Grid container marginTop={2} marginLeft={110} item xs={12} sm={12} md={12} lg={12}>
                         <Stack
                             direction="row"
@@ -367,6 +361,7 @@ const Schedule = ({}) => {
                   </Grid>
                 </Grid>
             </form>
+{/** Modal popping up when a successfull request (slot picked & phonevalidation) where send after clicking the "Send" button */}
             <Modal
                 isOpen={showModal}
                 handleClose={() => setShowModal(false)}

@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+// Modal defaults for the modal-component from the materialUI-lib
 const Modal = ({
     isShowButtons = false,
     isOpen = false,

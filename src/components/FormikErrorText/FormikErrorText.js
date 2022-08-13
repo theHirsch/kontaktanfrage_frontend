@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Defaults for the FormikErrorText used for the phonenumber textfield
 const FormikErrorText = (props) => {
     let { formikInstance, fieldName } = props;
 

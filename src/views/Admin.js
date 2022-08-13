@@ -1,3 +1,4 @@
+// Imports data from components, .css file and libraries used for the Admin View
 import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -15,12 +16,13 @@ import axios from 'axios';
 import TimeFormatter from '../components/Datum/Datum';
 import './Admin.css';
 
+//Full Admin View
 function Admin() {
 
     function createData(Telefonnummer, Wunschzeiten, Hochgeladen, deleteAction) {
         return { Telefonnummer, Wunschzeiten, Hochgeladen, deleteAction };
     }
-     
+    
     const rows = [
         'id',
         'phonenumber',
@@ -47,7 +49,7 @@ function Admin() {
             .catch((err) => { console.log(err) })
     }, []);
 
-// Delete item (id) and log if successful 
+// Delete item (by id) and log if successful 
     const deleteItem = (val) => {
     
         console.log('FUNZT')
@@ -59,31 +61,8 @@ function Admin() {
                     window.location.reload();
                 });
     }
-/* 
-    class TimeFormatter extends React.Component {
-        formatter = new Intl.DateTimeFormat("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "2-digit",
-                hour: "numeric",
-                minute: "numeric",
-              });
-      
-        render() {
-          const dateString = "2019-10-30T14:01:59.689Z";
-      
-          return (
-            <div>
-              Using <code>Date.parse</code>: {this.formatter.format(Date.parse(dateString))}
-              <br />
-              <em>OR</em>
-              <br />
-              Using <code>new Date</code>: {this.formatter.format(new Date(dateString))}
-            </div>
-          );
-        }
-      }
- */
+
+// Formatting the createdAt data from the database for the current browser-language
 function datum (value) {
     
     let options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hours: 'numeric', minutes: 'numeric', seconds: 'numeric'};
@@ -120,7 +99,7 @@ function datum (value) {
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
-{/* new row with new db input and delete button*/}
+{/* New row with new db input and delete button*/}
                                 <TableBody>{post.map((i) => {
                                     return (
                                         <TableRow key={i.id} sx={ { border: 2 } }>
