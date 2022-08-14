@@ -20,6 +20,7 @@ import Buttons from '../components/Button/Buttons';
 import Input from '../components/Input/Input';
 import axios from 'axios';
 import * as Yup from 'yup';
+import "yup-phone-lite";
 import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import './Schedule.css';
@@ -52,13 +53,14 @@ const Schedule = ({}) => {
     const [showModal, setShowModal] = useState(false);
     const valid = 0;
     const [selectedSlots, setSelectedSlots] = useState([]);
+
     const formik = useFormik({
         enableReinitialze: true,
         initialValues: {
             phonenumber: ''
         },
         validationSchema: Yup.object({
-            phonenumber: Yup.string()
+            /* phonenumber: Yup.string()
               .min(4, 'Zu kurz!')
             
                 .required('Telefonnummer vergessen')
@@ -66,12 +68,19 @@ const Schedule = ({}) => {
                     let regExp = new RegExp('^[0-9._+-]*$');
                     if(document.getElementById('phonenumber').value.length > 4) {this.valid++;}
                     return regExp.test(val);
-                })
+                }) */
+            phonenumber: Yup.string()
+            .phone("DE", "Bitte gebe ein gültige Telefonnummer ein.")
+            .required('Telefonnummer vergessen')
+            .min(4, 'Zu kurz!'),
         }),
+        validateOnChange: true,
         onSubmit: (values) => {
+            console.log(values)
             handleSubmit(values);
-        }
+        },
     });
+
 
 /*     const handleSubmit = (values) => {
         // API call
@@ -123,18 +132,21 @@ const Schedule = ({}) => {
                 checkeddates.push(dates[i].value)
               }
             }
-            console.log(checkeddates);
-            axios.post('http://localhost:8080/api/tests', {
-              Telefonnummer: document.getElementById('phonenumber').value,
-              Wunschzeiten: checkeddates.toString(),
-              headers:{"Content-Type" : "application/json"}
-            }).then((res) => {           
 
-// Open modal (modal in components)
-          setShowModal(true)
-
-          console.log(res)
-        }).catch((err) => {console.log(err)});
+            if (checkeddates.length > 0) {
+                console.log(checkeddates);
+                axios.post('http://localhost:8080/api/tests', {
+                  Telefonnummer: document.getElementById('phonenumber').value,
+                  Wunschzeiten: checkeddates.toString(),
+                  headers:{"Content-Type" : "application/json"}
+                }).then((res) => {           
+    
+    // Open modal (modal in components)
+              setShowModal(true)
+    
+                console.log(res)
+                 }).catch((err) => {console.log(err)});
+            }
     };
 // Reset for pickedslots|checkboxes & input field (telephone)
     const handleReset = () => {
@@ -203,7 +215,7 @@ const Schedule = ({}) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit}>
-                <Grid id="containerH1" container spacing={0} sx={{ bgcolor: '' }}>
+                <Grid id="containerH1" container spacing={0} sx={{ height: '80%', width: '80%' }}>
                     <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={1} variant="h2">Kontaktanfragenformular</Typography>
                   <Grid id="containerText" container spacing={1}>
                   <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={2} align="center" variant="h6">&nbsp;&nbsp;Bitte wählen Sie ihre Wunschkontaktzeiträume in der Tabelle aus, tragen Sie ihre Telefonnummer im dafür vorgesehenen Feld ein und klicken Sie auf absenden!</Typography>
@@ -304,12 +316,12 @@ const Schedule = ({}) => {
                         </TableContainer>
                     </Grid>
 {/** Grid for the telephone Input (components/Input) and the two Buttons "Reset" and "Send" (components/Button) */}
-                    <Grid container marginTop={2} marginLeft={110} item xs={12} sm={12} md={12} lg={12}>
+                    <Grid alignItems="center" marginTop={2} marginLeft={70} item xs={6} sm={6} md={6} lg={6}>
                         <Stack
+                            align="center"
                             direction="row"
-                            justifyContent="left"
                             alignItems="center"
-                            spacing={2}
+                            spacing={6}
                         >
                             <Typography variant="h6">
                                 Ihre Telefonnummer:
@@ -350,6 +362,7 @@ const Schedule = ({}) => {
                                     id="submitButton"
                                     size="medium"
                                     variant="contained"
+                                    isDisabled={(!formik.dirty || !formik.isValid)}
                                     buttonText="Absenden"
                                     endIcon={<SendIcon />}
                                     styles={{ width: '50%' }}
@@ -365,7 +378,7 @@ const Schedule = ({}) => {
             <Modal
                 isOpen={showModal}
                 handleClose={() => setShowModal(false)}
-                handleContinuePress={() => setShowModal(false)}
+                handleContinuePress={() => setShowModal(false) /*window.location.reload()*/}
                 isShowButtons
                 showContinueBtn
                 modalTilte="Gratulation!"

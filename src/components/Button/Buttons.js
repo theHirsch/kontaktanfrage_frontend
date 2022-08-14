@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 const Buttons = ({
     variant = 'text',
     buttonText = 'Button Text',
-    isDisable = false,
+    isDisabled = false,
     size = 'small',
     startIcon = null,
     endIcon = null,
@@ -16,7 +16,7 @@ const Buttons = ({
         <Button
             sx={styles}
             size={size}
-            disabled={isDisable}
+            disabled={isDisabled}
             variant={variant}
             onClick={handleClick}
             startIcon={startIcon}

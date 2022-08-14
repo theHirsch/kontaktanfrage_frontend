@@ -12,7 +12,7 @@ const Input = ({
     handleBlur = () => {},
     messageText = '',
     label = 'input',
-    size = 'small',
+    size = 'medium',
     name = ''
 }) => {
     return (
