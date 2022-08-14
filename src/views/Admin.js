@@ -82,19 +82,19 @@ function datum (value) {
                         <Table sx={{ minWidth: 'auto', minHeight: 'auto' }} aria-label="simple table">
                             <TableHead className="th_header">
                                 <TableRow sx={{ bgcolor: '#ffafaf' }} id="header_row_id" key="header_row">
-                                    <TableCell sx={{ border: 1 }}>
+                                    <TableCell sx={{fontSize: 'medium', border: 1 }}>
                                         ID
                                     </TableCell>
-                                    <TableCell sx={ { border: 1 } }>
+                                    <TableCell sx={{fontSize: 'medium', border: 1 } }>
                                         Telefonnummer
                                     </TableCell>
-                                    <TableCell sx={ { border: 1 } }>
+                                    <TableCell sx={{fontSize: 'medium', border: 1 } }>
                                         Wunschzeiten
                                     </TableCell>
-                                    <TableCell sx={ { border: 1 } }>
+                                    <TableCell sx={{fontSize: 'medium', border: 1 } }>
                                         Hochgeladen am
                                     </TableCell>
-                                    <TableCell sx={ { border: 1 } }>
+                                    <TableCell sx={{fontSize: 'medium', border: 1 } }>
                                         Löschen
                                     </TableCell>
                                 </TableRow>
@@ -103,16 +103,16 @@ function datum (value) {
                                 <TableBody>{post.map((i) => {
                                     return (
                                         <TableRow key={i.id} sx={ { border: 2 } }>
-                                        <TableCell>
+                                        <TableCell sx={{fontSize: 'medium'}}>
                                             {i.id}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{fontSize: 'medium'}}>
                                             {i.Telefonnummer}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{fontSize: 'medium'}}>
                                             {i.Wunschzeiten}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{fontSize: 'medium'}}>
                                             {datum(i.createdAt)}
                                         </TableCell>
                                         <TableCell>

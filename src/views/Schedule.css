@@ -1,4 +1,12 @@
 /* CSS (styles) for the Schedule View */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+.view_schedule {
+  background-color: rgb(253, 255, 197);
+  width: 85%;
+  height: 85%;
+  font-family: 'Roboto+Mono';
+}
 
 input[type=checkbox] {
     -webkit-appearance: none;
@@ -19,5 +27,5 @@ input[type=checkbox] {
 }
 
 input[type=checkbox]:checked {
-        background: #638745 -19px top no-repeat;
+        background: #2d5b07 -19px top no-repeat;
       }

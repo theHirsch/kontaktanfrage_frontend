@@ -60,15 +60,6 @@ const Schedule = ({}) => {
             phonenumber: ''
         },
         validationSchema: Yup.object({
-            /* phonenumber: Yup.string()
-              .min(4, 'Zu kurz!')
-            
-                .required('Telefonnummer vergessen')
-                .test('regex', 'Bitte korrekte Telennummer eingeben', (val) => {
-                    let regExp = new RegExp('^[0-9._+-]*$');
-                    if(document.getElementById('phonenumber').value.length > 4) {this.valid++;}
-                    return regExp.test(val);
-                }) */
             phonenumber: Yup.string()
             .phone("DE", "Bitte gebe ein gültige Telefonnummer ein.")
             .required('Telefonnummer vergessen')
@@ -82,7 +73,9 @@ const Schedule = ({}) => {
     });
 
 
-/*     const handleSubmit = (values) => {
+/*   //  Kläglicher Versuch mithilfe des Abrufens nach Wochentagen und nicht Uhrzeiten zu sortieren in den Wunschzeiten
+
+        const handleSubmit = (values) => {
         // API call
         console.log(values);
         const dates = document.querySelectorAll('input[name="date"]')
@@ -121,7 +114,7 @@ const Schedule = ({}) => {
           headers:{"Content-Type" : "application/json"}
         }).then((res) => { */
 
-// Send data to api and show the modal when clicking the "Send" button
+// Send data (checked input checkboxes (filled with the created data)) to api and show the modal when clicking the "Send" button
         const handleSubmit = (values) => {
             // API call
             console.log(values);
@@ -141,7 +134,7 @@ const Schedule = ({}) => {
                   headers:{"Content-Type" : "application/json"}
                 }).then((res) => {           
     
-    // Open modal (modal in components)
+// Open modal (modal in components)
               setShowModal(true)
     
                 console.log(res)
@@ -159,7 +152,7 @@ const Schedule = ({}) => {
     function createData(timeSlot, montag, dienstag, mittwoch, donnerstag, freitag) {
         return { timeSlot, montag, dienstag, mittwoch, donnerstag, freitag };
     }
-// ..and how to save them in the backend
+// ..and how to save them in the backend (no spaces for shorter )
     const rows = [
         createData(
             '08:00-10:00',
@@ -215,10 +208,10 @@ const Schedule = ({}) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit}>
-                <Grid id="containerH1" container spacing={0} sx={{ height: '80%', width: '80%' }}>
-                    <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={1} variant="h2">Kontaktanfragenformular</Typography>
+                <Grid id="containerH1" container spacing={0} sx={{height: '80%', width: '80%' }}>
+                    <Typography sx={{fontfamily:'Roboto+Mono', fontstyle: 'bold'}} marginTop={1} variant="h2">Kontaktanfragenformular</Typography>
                   <Grid id="containerText" container spacing={1}>
-                  <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={2} align="center" variant="h6">&nbsp;&nbsp;Bitte wählen Sie ihre Wunschkontaktzeiträume in der Tabelle aus, tragen Sie ihre Telefonnummer im dafür vorgesehenen Feld ein und klicken Sie auf absenden!</Typography>
+                  <Typography sx={{ fontfamily:'Roboto', fontstyle: 'bold'}} marginTop={2} align="center" variant="h6">&nbsp;Bitte wählen Sie per Klick ihre Wunschkontaktzeiträume in der Tabelle aus (max.15), tragen Sie ihre Telefonnummer im dafür vorgesehenen Feld ein und klicken Sie auf absenden! Ein Kundendienstmitarbeiter wird sich dann telefonisch bei Ihnen melden.</Typography>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
